@@ -1,6 +1,6 @@
 Param(
-[string]$version,
-[string]$apikey
+ [Parameter(Mandatory=$True)][string]$version,
+ [Parameter(Mandatory=$True)][string]$apikey
 )
 
 $directory = resolve-path .
@@ -10,7 +10,7 @@ if(-not ($directory -match "CtorMock\\Deploy$"))
     break
 }
 
-$packages = "CtorMock", "CtorMock.Moq", "\CtorMock.FakeItEasy"
+$packages = "CtorMock", "CtorMock.Moq", "CtorMock.FakeItEasy"
 
 $packages | % {dotnet pack $directory\..\$_\$_.csproj -o $directory\Builds /p:PackageVersion=$version}
 

@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CtorMock" Version="1.0.0" />
     <PackageReference Include="FakeItEasy" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CtorMock\CtorMock.csproj" />
   </ItemGroup>
 
 </Project>
