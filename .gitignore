@@ -22,6 +22,8 @@ x64/
 x86/
 *.orig
 
+Builds/
+
 build/
 bld/
 [Bb]in/
