@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Hasslebrant.CtorMock.Base</id>
+    <id>Hasslebrant.CtorMock.Moq</id>
     <version>$version$</version>
     <title>CtorMock</title>
     <authors>Tobias Hasslebrant</authors>
     <owners>Tobias Hasslebrant</owners>
     <projectUrl>https://github.com/tobiashasslebrant/CtorMock</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Base package for auto mocking constructor arguments</description>
+    <description>Moq implementation for auto mocking constructor arguments</description>
     <releaseNotes>First Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>IOC Mock Injection Constructor </tags>
+    <tags>IOC Mock Injection Constructor</tags>
   </metadata>
 </package>

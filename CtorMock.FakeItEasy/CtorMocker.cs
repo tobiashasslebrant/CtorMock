@@ -13,12 +13,10 @@ namespace CtorMock.FakeItEasy
 
         protected override object CreateMock(Type type)
         {
-            if (_mocks.ContainsKey(type))
-                return _mocks[type];
+            if (!_mocks.ContainsKey(type))
+                _mocks.Add(type, Create.Fake(type));
 
-            var mock = Create.Fake(type);
-            _mocks.Add(type, mock);
-            return mock;
+            return _mocks[type];
         }
     }
 }

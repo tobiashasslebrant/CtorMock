@@ -13,12 +13,10 @@ namespace CtorMock.Moq
 
         protected override object CreateMock(Type type)
         {
-            if (_mocks.ContainsKey(type))
-                return _mocks[type].Object;
+            if (!_mocks.ContainsKey(type))
+                _mocks.Add(type, (Mock)Activator.CreateInstance(typeof(Mock<>).MakeGenericType(type)));
 
-            var mock = (Mock)Activator.CreateInstance(typeof(Mock<>).MakeGenericType(type));
-            _mocks.Add(type, mock);
-            return mock.Object;
+            return _mocks[type].Object;
         }
     }
 }
