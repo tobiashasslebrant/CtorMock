@@ -14,6 +14,24 @@ When it creates the instance it will automock all constructor arguments and keep
 
 Example with Moq and xUnit:
 ```
+  public class MyApp
+  {
+      private readonly IMyDatabase _myDatabase;
+      private readonly IAppSetting _appSetting;
+
+      public MyApp(IMyDatabase myDatabase, IAppSetting appSetting)
+      {
+          _myDatabase = myDatabase;
+          _appSetting = appSetting;
+      }
+
+      public void RunQuery(string query)
+      {
+          _myDatabase.Execute(_appSetting.ConnectionString, query);
+      }
+  }
+    
+    
   namespace Given_MyApp
     {
         public class When_RunQuery : MockBase<MyApp>
