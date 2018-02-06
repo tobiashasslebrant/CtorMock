@@ -52,7 +52,6 @@ Example with Moq and xUnit:
             protected virtual IEnumerable<DbObject> SqlResult { get; } = null;
         }
 
-
         public class When_RunQuery : Arrange
         {
             private readonly IEnumerable<Product> _result;
@@ -72,9 +71,8 @@ Example with Moq and xUnit:
                 => Mocker.MockOf<IMyDatabase>().Verify(v => v.Execute("myConnectionString", It.IsAny<string>()));
 
             [Fact]
-            public void Should_execute_query()
+            public void Should_map_result_to_products()
                 => Assert.Equal(2, _result.Count());
-
         }
     }
 ```
