@@ -7,7 +7,7 @@ There are currently two implementations, one for Moq and one for FakeItEasy
 
 # Instructions
 
-When writing a test inherit from class MockBask<>, and use the class being tested as the generic.
+When writing a test inherit from class MockBase<>, and use the class being tested as the generic.
 
 Mockbase will create an instance of the class being tested and add it to property "Subject".
 When it creates the instance it will automock all constructor arguments and keep the mocks in memory, the mocks can be accessed by using the method MockOf<>.
