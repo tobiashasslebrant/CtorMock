@@ -13,7 +13,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="CtorMock" Version="1.0.0" />
+    <PackageReference Include="CtorMock" Version="1.0.1" />
     <PackageReference Include="FakeItEasy" Version="4.3.0" />
   </ItemGroup>
 
