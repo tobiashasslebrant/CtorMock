@@ -13,7 +13,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="CtorMock" Version="1.0.1" />
+    <PackageReference Include="CtorMock" Version="1.0.0" />
     <PackageReference Include="Moq" Vehrsion="4.8.1" Version="4.8.1" />
   </ItemGroup>
 
