@@ -1,6 +1,6 @@
 Param(
  [Parameter(Mandatory=$True)][string]$version,
- [Parameter(Mandatory=$True)][string]$apikey,
+ [string]$apikey = "",
  [Parameter(Mandatory=$True)][string]$package
 )
 
@@ -13,7 +13,9 @@ if(-not ($directory -match "CtorMock\\Deploy$"))
 
 dotnet pack $directory\..\$package\$package.csproj -c Release -o $directory\Builds /p:PackageVersion=$version
 
-nuget setapikey $apikey -source https://api.nuget.org/v3/index.json
-
-dotnet nuget push $directory\Builds\$package.$version.nupkg -s https://api.nuget.org/v3/index.json
+if($apikey -ne "")
+{
+    nuget setapikey $apikey -source https://api.nuget.org/v3/index.json
+    dotnet nuget push $directory\Builds\$package.$version.nupkg -s https://api.nuget.org/v3/index.json
+}
 
