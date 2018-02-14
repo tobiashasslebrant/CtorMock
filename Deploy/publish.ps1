@@ -1,6 +1,7 @@
 Param(
  [Parameter(Mandatory=$True)][string]$version,
- [Parameter(Mandatory=$True)][string]$apikey
+ [Parameter(Mandatory=$True)][string]$apikey,
+ [Parameter(Mandatory=$True)][string]$package
 )
 
 $directory = resolve-path .
@@ -10,11 +11,9 @@ if(-not ($directory -match "CtorMock\\Deploy$"))
     break
 }
 
-$packages = "CtorMock", "CtorMock.Moq", "CtorMock.FakeItEasy"
-
-$packages | % {dotnet pack $directory\..\$_\$_.csproj -o $directory\Builds /p:PackageVersion=$version}
+dotnet pack $directory\..\$package\$package.csproj -c Release -o $directory\Builds /p:PackageVersion=$version
 
 nuget setapikey $apikey -source https://api.nuget.org/v3/index.json
 
-$packages | % {dotnet nuget push $directory\Builds\$_.$version.nupkg -s https://api.nuget.org/v3/index.json}
+dotnet nuget push $directory\Builds\$package.$version.nupkg -s https://api.nuget.org/v3/index.json
 

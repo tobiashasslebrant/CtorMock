@@ -3,7 +3,7 @@
   <metadata>
     <id>CtorMock.Moq</id>
     <version>$version$</version>
-    <title>CtorMock</title>
+    <title>CtorMock for Moq</title>
     <authors>Tobias Hasslebrant</authors>
     <owners>Tobias Hasslebrant</owners>
     <projectUrl>https://github.com/tobiashasslebrant/CtorMock</projectUrl>
@@ -13,4 +13,8 @@
     <copyright>Copyright 2018</copyright>
     <tags>IOC Mock Injection Constructor</tags>
   </metadata>
+
+  <files>
+    <file src="bin\Release\netstandard2.0\*.dll" target="lib\netstandard2.0" />
+  </files>
 </package>
