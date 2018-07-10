@@ -12,6 +12,10 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>IOC Mock Injection Constructor</tags>
+	<dependencies>
+		<dependency id="CtorMock" version="1.0.2" />
+		<dependency id="Moq" version="4.8.1" />
+	</dependencies>
   </metadata>
 
   <files>
