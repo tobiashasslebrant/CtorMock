@@ -1,6 +1,6 @@
 Param(
  [Parameter(Mandatory=$True)][string]$version,
- [string]$apikey = "",
+ [Parameter(Mandatory=$True)][string]$apikey,
  [Parameter(Mandatory=$True)][string]$package
 )
 
