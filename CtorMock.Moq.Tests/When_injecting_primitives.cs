@@ -24,4 +24,20 @@ namespace CtorMock.Moq.Tests
         public void Should_have_mocked_int_to_0()
             => Assert.Equal(0, Subject.Test2);
     }
+
+	public class When_calling_mockof_before_new
+	{
+		[Fact]
+		public void Should_create_mock_object()
+		{
+			var mocker = new CtorMocker();
+			mocker.MockOf<IInjected1>()
+				.Setup(s => s.Name)
+				.Returns("a name");
+
+			var subject = mocker.New<With_ctor_interfaces>();
+
+			Assert.Equal("a name", subject.Name);
+		}
+	}
 }

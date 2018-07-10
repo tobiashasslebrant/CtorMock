@@ -2,30 +2,12 @@ using Xunit;
 
 namespace CtorMock.Moq.Tests
 {
-    public interface ITest1 { string Name { get; } }
-    public interface ITest2 { string Name { get; } }
-    public interface ITest3 { string Name { get; } }
-
-    public class Test1 : ITest1
-    {
-        private readonly ITest2 _test2;
-        private readonly ITest3 _test3;
-
-        public Test1(ITest2 test2, ITest3 test3)
-        {
-            _test2 = test2;
-            _test3 = test3;
-        }
-
-        public string Name => _test2.Name + _test3.Name;
-    }
-    
-    public class When_injecting_interfaces : MockBase<Test1>
+    public class When_injecting_interfaces : MockBase<With_ctor_interfaces>
     {
         public When_injecting_interfaces()
         {
-            Mocker.MockOf<ITest2>().Setup(s => s.Name).Returns("test2");
-            Mocker.MockOf<ITest3>().Setup(s => s.Name).Returns("test3");
+            Mocker.MockOf<IInjected1>().Setup(s => s.Name).Returns("test2");
+            Mocker.MockOf<IInjected2>().Setup(s => s.Name).Returns("test3");
         }
 
         [Fact]

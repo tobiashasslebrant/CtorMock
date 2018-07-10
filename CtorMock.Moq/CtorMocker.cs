@@ -8,10 +8,15 @@ namespace CtorMock.Moq
     {
         readonly Dictionary<Type, Mock> _mocks = new Dictionary<Type, Mock>();
 
-        public Mock<T> MockOf<T>() where T : class 
-            => _mocks[typeof(T)] as Mock<T>;
+        public Mock<T> MockOf<T>() where T : class
+        {
+	        if (!_mocks.ContainsKey(typeof(T)))
+		        CreateMock(typeof(T));
+			
+	        return _mocks[typeof(T)] as Mock<T>;
+	    }
 
-        protected override object CreateMock(Type type)
+	    protected override object CreateMock(Type type)
         {
             if (!_mocks.ContainsKey(type))
                 _mocks.Add(type, (Mock)Activator.CreateInstance(typeof(Mock<>).MakeGenericType(type)));
