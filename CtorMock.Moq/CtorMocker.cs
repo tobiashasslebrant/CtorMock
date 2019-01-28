@@ -16,7 +16,14 @@ namespace CtorMock.Moq
 	        return _mocks[typeof(T)] as Mock<T>;
 	    }
 
-	    protected override object CreateMock(Type type)
+        public T CreateMock<T>() 
+        {
+            if(!typeof(T).IsInterface)
+                throw new Exception("When creating mock, it must be an interface");
+            return (T) CreateMock(typeof(T));
+        }
+
+        protected override object CreateMock(Type type)
         {
             if (!_mocks.ContainsKey(type))
                 _mocks.Add(type, (Mock)Activator.CreateInstance(typeof(Mock<>).MakeGenericType(type)));
