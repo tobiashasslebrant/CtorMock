@@ -10,7 +10,7 @@ There are currently two implementations, one for Moq and one for FakeItEasy
 When writing a test inherit from class MockBase<>, and use the class being tested as the generic.
 
 Mockbase will create an instance of the class being tested and add it to property "Subject".
-When it creates the instance it will automock all constructor arguments and keep the mocks in memory, the mocks can be accessed by using the method MockOf<>.
+When it creates the instance it will automock all constructor arguments and keep the mocks in memory, the mocks can be accessed by using the method MockOf<>. No need to setup all constructor arguments, just use the ones that are relevant for the test.
 
 Example with Moq and xUnit:
 ```
@@ -20,15 +20,18 @@ Example with Moq and xUnit:
     {
         private readonly IMyDatabase _myDatabase;
         private readonly IAppSetting _appSetting;
-
-        public MyApp(IMyDatabase myDatabase, IAppSetting appSetting)
+        private readonly ISomeInterface _someInterface;
+       
+        public MyApp(IMyDatabase myDatabase, IAppSetting appSetting, ISomeInterface someInterface)
         {
             _myDatabase = myDatabase;
             _appSetting = appSetting;
+            _someInterface = someInterface;
         }
 
         public IEnumerable<Product> RunQuery(string query)
         {
+            _someInterface.doSomething(); //this will not throw a null reference exception even though ignored during tests.
             var dbObjects = _myDatabase.Execute(_appSetting.ConnectionString, query);
             return dbObjects.Select(s => new Product {Id = s.Id});
         }
