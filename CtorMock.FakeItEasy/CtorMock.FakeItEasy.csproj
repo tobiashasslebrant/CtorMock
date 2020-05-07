@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
  	 <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
+ 	 <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
