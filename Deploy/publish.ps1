@@ -17,7 +17,5 @@ if($apikey -ne "")
 {
     nuget setapikey $apikey -source https://api.nuget.org/v3/index.json
     dotnet nuget push $directory\Builds\$package.$version.nupkg -s https://api.nuget.org/v3/index.json
-    #alternative
-    # dotnet nuget push $directory\Builds\$package.$version.nupkg -s https://api.nuget.org/v3/index.json -k $apikey
 }
 
