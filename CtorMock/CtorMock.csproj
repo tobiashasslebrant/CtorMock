@@ -6,6 +6,7 @@
 	 <LangVersion>default</LangVersion>
   </PropertyGroup>
 
+  
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
     <PropertyGroup>
        <NuspecProperties>$(NuspecProperties);version=$(PackageVersion)</NuspecProperties>
