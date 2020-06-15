@@ -14,6 +14,6 @@ namespace CtorMock.Tests.Given_InstanceFactory
 
         [Fact]
         public void Can_create_object()
-            => Assert.NotNull(New<TestClass>());
+            => Assert.NotNull(Subject.New<TestClass>());
     }
 }

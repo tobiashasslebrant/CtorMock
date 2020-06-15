@@ -11,25 +11,13 @@ namespace CtorMock
 
         public InstanceFactory(Func<Type,object> createMock) => _createMock = createMock;
 
-        public T New<T>(Func<ParameterInfo, (object replaceWith, bool isReplaced)> paramReplace = null)
+        public T New<T>(Func<ParameterInfo, (object replaceWith, bool isReplaced)> paramReplace)
             => New<T>(0, paramReplace);
 
         public T New<T>(int ctorIndex = 0, Func<ParameterInfo, (object replaceWith,bool isReplaced)> paramReplace = null)
         {
             return (T)Create(typeof(T));
-
-            object Replace(ParameterInfo parameterInfo)
-            {
-                if (paramReplace != null)
-                {
-                    var result = paramReplace.Invoke(parameterInfo);
-                    if (result.isReplaced)
-                        return result.replaceWith;
-                    
-                }
-                return null;
-            }
-
+            
             object Create(Type type)
             {
                 var ctors = type.GetConstructors();
@@ -47,7 +35,7 @@ namespace CtorMock
                     return _createMock(type);
 
                 var ctorParams = ctors[ctorIndex].GetParameters();
-                ctorIndex = 0; //only first type will be able to chose contructor
+                ctorIndex = 0; //only first iteration will be able to chose ctor
                 
                 return ctorParams.Length == 0
                     ? Activator.CreateInstance(type)
@@ -56,6 +44,23 @@ namespace CtorMock
                             Replace(param) ?? 
                             Create(param.ParameterType)).ToArray());
             }
+            
+            object Replace(ParameterInfo parameterInfo)
+            {
+                if (paramReplace != null)
+                {
+                    var result = paramReplace.Invoke(parameterInfo);
+                    if (result.isReplaced)
+                    {
+                        if(result.replaceWith?.GetType() != parameterInfo.ParameterType)
+                            throw new ArgumentException($"Replaced type {result.replaceWith?.GetType().Name} must be same as parameter type {parameterInfo.ParameterType.Name}");
+
+                        return result.replaceWith;
+                    }
+                }
+                return null;
+            }
+
         }
         
         object GetDefault(Type t) 

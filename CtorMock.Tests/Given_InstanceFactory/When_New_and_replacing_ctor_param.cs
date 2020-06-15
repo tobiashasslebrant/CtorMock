@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Xunit;
 
@@ -26,17 +27,37 @@ namespace CtorMock.Tests.Given_InstanceFactory
 
         [Fact]
         public void Will_replace_str2()
-            => Assert.Equal("replaced string", New<TestClass1>(replaceFunction).Str2);kl
+            => Assert.Equal("replaced string", Subject.New<TestClass1>(replaceFunction).Str2);
         
         [Fact]
         public void Will_not_replace_str1()
-            => Assert.Null(New<TestClass1>(replaceFunction).Str1);
+            => Assert.Null(Subject.New<TestClass1>(replaceFunction).Str1);
         
         [Fact]
         public void Will_not_replace_str3()
-            => Assert.Null(New<TestClass1>(replaceFunction).Str3);
+            => Assert.Null(Subject.New<TestClass1>(replaceFunction).Str3);
+    }
 
-
+    public class When_New_and_replacing_ctor_param_with_wrong_type : Arrange
+    {
+        class TestClass1
+        {
+            public string Str1 { get; }
+            
+            public TestClass1(string str1)
+            {
+                Str1 = str1;
+            }
+        }
+        
+        (object, bool) replaceFunction(ParameterInfo parameterInfo)
+            => parameterInfo.Name == "str1"
+                ? (new object(), true)
+                : (null, false);
+        
+        [Fact]
+        public void Will_not_accept_replace()
+            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(replaceFunction));
 
     }
 }

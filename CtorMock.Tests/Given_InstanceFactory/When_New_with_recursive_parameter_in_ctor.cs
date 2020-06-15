@@ -21,7 +21,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
 
         [Fact]
         public void Can_create_nested_objects()
-            => Assert.NotNull(New<TestClass1>().Inner.Inner);
+            => Assert.NotNull(Subject.New<TestClass1>().Inner.Inner);
         
     }
 }

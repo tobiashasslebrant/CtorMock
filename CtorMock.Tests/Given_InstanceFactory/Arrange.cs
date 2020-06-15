@@ -1,19 +1,10 @@
     using System;
-using System.Reflection;
 
-namespace CtorMock.Tests.Given_InstanceFactory
-{
-    public abstract class Arrange
+    namespace CtorMock.Tests.Given_InstanceFactory
     {
-        protected class MockedObject
+        public abstract class Arrange
         {
-            
-        }
-        
-        protected T New<T>(Func<ParameterInfo, (object,bool)> func = null)
-        {
-            var fact = new InstanceFactory(type => Convert.ChangeType(null, type));
-            return fact.New<T>(func);
+            public InstanceFactory Subject 
+                => new InstanceFactory(type => Convert.ChangeType(null, type));
         }
     }
-}
