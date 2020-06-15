@@ -10,7 +10,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
             
         }
         
-        protected T New<T>(Func<ParameterInfo, object> func = null)
+        protected T New<T>(Func<ParameterInfo, (object,bool)> func = null)
         {
             var fact = new InstanceFactory(type => Convert.ChangeType(null, type));
             return fact.New<T>(func);
