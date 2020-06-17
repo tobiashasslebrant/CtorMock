@@ -4,7 +4,19 @@
     {
         public abstract class Arrange
         {
-            public InstanceFactory Subject 
-                => new InstanceFactory(type => Convert.ChangeType(null, type));
+            public Arrange()
+            {
+                Subject = new InstanceFactory(type =>
+                {
+                    if(type.Name == nameof(ITestInterface))
+                        return new TestClassWithInterface();
+                    
+                    return Convert.ChangeType(null, type);
+                });
+            }
+            protected interface ITestInterface{}
+            protected class TestClassWithInterface : ITestInterface{}
+
+            public InstanceFactory Subject { get; } 
         }
     }
