@@ -1,16 +1,17 @@
-using System;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
+using System.Collections.Generic;
 using Xunit;
 
 namespace CtorMock.Tests.Given_InstanceFactory
 {
-    public class When_New_with_valuetype_parameter_in_ctor : Arrange
+    public class When_New_with_two_ctor_with_two_nullable_params : Arrange
     {
         class TestClass
         {
-            public TestClass(int o)
+            public TestClass(object o)
+            {
+                
+            }
+            public TestClass(object[] o)
             {
                 
             }

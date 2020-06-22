@@ -36,8 +36,8 @@ namespace CtorMock.Tests.Given_InstanceFactory
         {
             public string ChosenCtor { get; }
             
-            public TestClass3(double s) => ChosenCtor = "depth3:first";
-            public TestClass3(int i) => ChosenCtor = "depth3:second";
+            public TestClass3(double s) => ChosenCtor = "depth2:first";
+            public TestClass3(int i) => ChosenCtor = "depth2:second";
         }
         
        
@@ -64,7 +64,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
             });
             Assert.Equal("depth0:third", result.ChosenCtor);
             Assert.Equal("depth1:second", result.Inner.ChosenCtor);
-            Assert.Equal("depth3:first", result.Inner.Inner.ChosenCtor);
+            Assert.Equal("depth2:first", result.Inner.Inner.ChosenCtor);
 
             
         }

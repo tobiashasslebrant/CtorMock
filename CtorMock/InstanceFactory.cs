@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Reflection;
 
@@ -46,14 +47,21 @@ namespace CtorMock
                     return DefaultValue.Of(type);
 
                 var ctorIndex = chooseCtor?.Invoke(type, depth++) ?? 0;
-                var ctorParams = ctors[ctorIndex].GetParameters();
+
+                var ctorParams = ctors[ctorIndex].GetParameters()
+                    .Select(param =>
+                        Replace(param) ??
+                        Create(param.ParameterType))
+                    .ToArray();
+
+                return ctors[ctorIndex].Invoke(BindingFlags.CreateInstance, null, ctorParams, null);
                 
-                return ctorParams.Length == 0
-                    ? Activator.CreateInstance(type)
-                    : Activator.CreateInstance(type, ctorParams
-                        .Select(param => 
-                            Replace(param) ?? 
-                            Create(param.ParameterType)).ToArray());
+                // return ctorParams.Length == 0
+                //     ? Activator.CreateInstance(type)
+                //     : Activator.CreateInstance(type, ctorParams
+                //         .Select(param => 
+                //             Replace(param) ?? 
+                //             Create(param.ParameterType)).ToArray());
             }
             
             object Replace(ParameterInfo parameterInfo)
@@ -71,7 +79,6 @@ namespace CtorMock
                 }
                 return null;
             }
-
         }
     }
 }
