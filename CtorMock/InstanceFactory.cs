@@ -55,7 +55,7 @@ namespace CtorMock
         public T New<T>(Func<ParameterInfo, int, (object replaceWith, bool isReplaced)> paramReplace = null, Func<Type, int, int> chooseCtor = null) where T : class
         {
             var depth = 0;
-            return (T)Create(typeof(T));p
+            return (T)Create(typeof(T));
             
             object Create(Type type)
             {
