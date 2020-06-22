@@ -11,7 +11,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
             public TestClass1(string str1){}
         }
         
-        (object, bool) replaceFunction(ParameterInfo parameterInfo)
+        (object, bool) replaceFunction(ParameterInfo parameterInfo, int depth)
             => parameterInfo.Name == "str1"
                 ? (new object(), true)
                 : (null, false);

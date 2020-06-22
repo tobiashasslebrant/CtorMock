@@ -19,7 +19,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
             }
         }
 
-        (object, bool) replaceFunction(ParameterInfo parameterInfo)
+        (object, bool) replaceFunction(ParameterInfo parameterInfo, int depth)
             => parameterInfo.Name == "str2"
                 ? ("replaced string", true)
                 : (null, false);
