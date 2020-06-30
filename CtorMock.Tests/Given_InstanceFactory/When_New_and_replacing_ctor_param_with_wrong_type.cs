@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using CtorMock.ParamReplacing;
 using Xunit;
 
 namespace CtorMock.Tests.Given_InstanceFactory
@@ -11,14 +12,17 @@ namespace CtorMock.Tests.Given_InstanceFactory
             public TestClass1(string str1){}
         }
         
-        (object, bool) replaceFunction(ParameterInfo parameterInfo, int depth)
-            => parameterInfo.Name == "str1"
-                ? (new object(), true)
-                : (null, false);
-        
+        class TestReplaceFunction : IParamReplace
+        {
+            public (object replaceWith, bool isReplaced) Replace(ParameterInfo parameterInfo, int depth)
+                => parameterInfo.Name == "str1"
+                    ? (new object(), true)
+                    : (null, false);
+        }
+
         [Fact]
         public void Will_not_accept_replace()
-            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(replaceFunction));
+            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(new TestReplaceFunction()));
 
     }
 }

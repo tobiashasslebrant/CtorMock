@@ -1,3 +1,5 @@
+using System;
+using CtorMock.CtorSelect;
 using Xunit;
 
 namespace CtorMock.Tests.Given_InstanceFactory
@@ -47,12 +49,12 @@ namespace CtorMock.Tests.Given_InstanceFactory
         
         [Fact]
         public void Can_chose_second_ctor()
-            => Assert.Equal("depth0:second", Subject.New<TestClass>((type,depth) => 1).ChosenCtor);
+            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type,depth) => 1)).ChosenCtor);
         
         [Fact]
         public void Can_chose_different_ctor_for_inner_types()
         {
-            var result = Subject.New<TestClass>((type, depth) =>
+            var result = Subject.New<TestClass>(new ctorSel((type, depth) =>
             {
                 if (type == typeof(TestClass) && depth == 0)
                     return 2;
@@ -61,12 +63,21 @@ namespace CtorMock.Tests.Given_InstanceFactory
                     return 1;
 
                 return 0;
-            });
+            }));
             Assert.Equal("depth0:third", result.ChosenCtor);
             Assert.Equal("depth1:second", result.Inner.ChosenCtor);
             Assert.Equal("depth2:first", result.Inner.Inner.ChosenCtor);
+        }
 
-            
+
+        class ctorSel : ICtorSelecter
+        {
+            private readonly Func<Type, int, int> _func;
+
+            public ctorSel(Func<Type,int,int> func) => _func = func;
+
+            public int Index(Type type, int depth)
+                => _func(type, depth);
         }
     }
 }
