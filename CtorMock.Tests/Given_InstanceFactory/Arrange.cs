@@ -18,6 +18,9 @@
                     return _mocks[type].Object;
                 
                 _mocks.Add(type, mock);
+                
+                var v = new Mock<ITestInterface>();
+                
                 return _mocks[type].Object;
             }
         }

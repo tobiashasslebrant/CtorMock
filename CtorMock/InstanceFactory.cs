@@ -8,15 +8,16 @@ namespace CtorMock
 {
     public abstract class InstanceFactory
     {
+        
         private const int DEFAULT_CTOR = 0;
         
         public abstract object CreateMock(Type type);
-        
+
         public T New<T>(ICtorSelecter ctorSelecter) where T : class
             => New<T>(ctorSelecter,null);
         
-        public T New<T>(IParamReplace paramReplace) where T : class
-            => New<T>(null, paramReplace);
+        public T New<T>(params IParamReplace[] paramReplaces) where T : class
+            => New<T>(null, paramReplaces);
         
         public T New<T>(ICtorSelecter ctorSelecter = null, params IParamReplace[] paramReplaces) where T : class
         {
