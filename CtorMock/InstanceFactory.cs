@@ -8,20 +8,32 @@ namespace CtorMock
 {
     public abstract class InstanceFactory
     {
-        
         private const int DEFAULT_CTOR = 0;
+        private const int CREATED_TYPE_DEPTH = 0;
         
         public abstract object CreateMock(Type type);
 
+        public T New<T>() where T : class
+            => New<T>(null,null);
+        
         public T New<T>(ICtorSelecter ctorSelecter) where T : class
             => New<T>(ctorSelecter,null);
         
-        public T New<T>(params IParamReplace[] paramReplaces) where T : class
-            => New<T>(null, paramReplaces);
+        public T New<T>(int ctorIndex) where T : class
+            => New<T>(new CtorSelecterForCreatedType(ctorIndex),null);
         
-        public T New<T>(ICtorSelecter ctorSelecter = null, params IParamReplace[] paramReplaces) where T : class
+        public T New<T>(IParamReplace paramReplace) where T : class
+            => New<T>(null, paramReplace);
+        
+        public T New<T>(params (string paramName, object replacedWith)[] paramReplaces) where T : class
+            => New<T>(null, new ParamReplaceMany(paramReplaces, CREATED_TYPE_DEPTH));
+
+        public T New<T>(int ctorIndex, params (string paramName, object replacedWith)[] paramReplaces) where T : class
+            => New<T>(new CtorSelecterForCreatedType(ctorIndex), new ParamReplaceMany(paramReplaces, CREATED_TYPE_DEPTH));
+        
+        public T New<T>(ICtorSelecter ctorSelecter, IParamReplace paramReplace) where T : class
         {
-            var depth = 0;
+            var depth = CREATED_TYPE_DEPTH;
 
             return (T)Create(typeof(T));
             
@@ -55,19 +67,16 @@ namespace CtorMock
             
             object Replace(ParameterInfo parameterInfo)
             {
-                if (paramReplaces != null)
+                if (paramReplace != null)
                 {
-                    foreach (var paramReplace in paramReplaces)
+                    var result = paramReplace.Replace(parameterInfo, depth);
+                    if (result.isReplaced)
                     {
-                        var result = paramReplace.Replace(parameterInfo, depth);
-                        if (result.isReplaced)
-                        {
-                            if (result.replaceWith?.GetType() != parameterInfo.ParameterType)
-                                throw new ArgumentException(
-                                    $"Replaced type {result.replaceWith?.GetType().Name} must be same as parameter type {parameterInfo.ParameterType.Name}");
+                        if (result.replaceWith?.GetType() != parameterInfo.ParameterType)
+                            throw new ArgumentException(
+                                $"Replaced type {result.replaceWith?.GetType().Name} must be same as parameter type {parameterInfo.ParameterType.Name}");
 
-                            return result.replaceWith;
-                        }
+                        return result.replaceWith;
                     }
                 }
                 return null;

@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace CtorMock
 {
+    [Obsolete("Use InstanceFactory")]
     public abstract class CtorMockerBase
     {
         protected abstract object CreateMock(Type type);
