@@ -1,12 +1,12 @@
 using Xunit;
 
-namespace CtorMock.Tests.Given_InstanceFactory
+namespace CtorMock.Tests.Given_InstanceFactoryBase
 {
-    public class When_New_with_parameterless_ctor : Arrange
+    public class When_New_with_valuetype_parameter_in_ctor : Arrange
     {
         class TestClass
         {
-            public TestClass()
+            public TestClass(int o)
             {
                 
             }

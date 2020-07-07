@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace CtorMock.Tests.Given_InstanceFactory
+namespace CtorMock.Tests.Given_InstanceFactoryBase
 {
     public class When_New_with_replace_many : Arrange
     {

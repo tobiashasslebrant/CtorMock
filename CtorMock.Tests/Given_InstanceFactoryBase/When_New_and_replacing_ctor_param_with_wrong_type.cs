@@ -3,7 +3,7 @@ using System.Reflection;
 using CtorMock.ParamReplacing;
 using Xunit;
 
-namespace CtorMock.Tests.Given_InstanceFactory
+namespace CtorMock.Tests.Given_InstanceFactoryBase
 {
     public class When_New_and_replacing_ctor_param_with_wrong_type : Arrange
     {
@@ -22,7 +22,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
 
         [Fact]
         public void Will_not_accept_replace()
-            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(new TestReplaceFunction()));
+            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(null,new TestReplaceFunction()));
 
     }
 }

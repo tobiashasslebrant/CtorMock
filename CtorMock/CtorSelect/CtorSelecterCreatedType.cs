@@ -2,11 +2,11 @@ using System;
 
 namespace CtorMock.CtorSelect
 {
-    public class CtorSelecterForCreatedType : ICtorSelecter
+    public class CtorSelecterCreatedType : ICtorSelecter
     {
         private readonly int _ctorIndex;
 
-        public CtorSelecterForCreatedType(int ctorIndex) 
+        public CtorSelecterCreatedType(int ctorIndex) 
             => _ctorIndex = ctorIndex;
 
         public int Index(Type type, int depth) 

@@ -2,7 +2,7 @@ using System;
 using CtorMock.CtorSelect;
 using Xunit;
 
-namespace CtorMock.Tests.Given_InstanceFactory
+namespace CtorMock.Tests.Given_InstanceFactoryBase
 {
     public class When_New_and_chosing_ctors : Arrange
     {
@@ -49,7 +49,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
         
         [Fact]
         public void Can_chose_second_ctor()
-            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type,depth) => 1)).ChosenCtor);
+            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type,depth) => 1),null).ChosenCtor);
         
         [Fact]
         public void Can_chose_different_ctor_for_inner_types()
@@ -63,7 +63,7 @@ namespace CtorMock.Tests.Given_InstanceFactory
                     return 1;
 
                 return 0;
-            }));
+            }),null);
             Assert.Equal("depth0:third", result.ChosenCtor);
             Assert.Equal("depth1:second", result.Inner.ChosenCtor);
             Assert.Equal("depth2:first", result.Inner.Inner.ChosenCtor);

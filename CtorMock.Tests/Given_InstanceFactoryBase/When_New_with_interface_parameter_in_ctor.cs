@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
-using Moq;
 using Xunit;
 
-namespace CtorMock.Tests.Given_InstanceFactory
+namespace CtorMock.Tests.Given_InstanceFactoryBase
 {
     public class When_New_with_interface_parameter_in_ctor : Arrange
     {
@@ -21,12 +18,5 @@ namespace CtorMock.Tests.Given_InstanceFactory
         [Fact]
         public void Can_create_object()
             => Assert.NotNull(Subject.New<TestClass>());
-        
-        [Fact]
-        public void Can_get_interfaces_after_creation()
-        {
-            Subject.New<TestClass>();
-            Assert.NotNull(Subject.GetMockOf<ITestInterface>());
-        }
     }
 }

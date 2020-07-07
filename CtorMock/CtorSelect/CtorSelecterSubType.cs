@@ -2,12 +2,12 @@ using System;
 
 namespace CtorMock.CtorSelect
 {
-    public class CtorSelecterForSubType : ICtorSelecter
+    public class CtorSelecterSubType : ICtorSelecter
     {
         private readonly Type _type;
         private readonly int _ctorIndex;
 
-        public CtorSelecterForSubType(Type type, int ctorIndex)
+        public CtorSelecterSubType(Type type, int ctorIndex)
         {
             _type = type;
             _ctorIndex = ctorIndex;
