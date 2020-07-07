@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="CtorMock" Version="1.0.9" />
-    <PackageReference Include="Moq" Version="4.8.1" />
+    <PackageReference Include="Moq" Version="4.14.4" />
   </ItemGroup>
 
 </Project>
