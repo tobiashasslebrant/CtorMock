@@ -49,17 +49,17 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
         
         [Fact]
         public void Can_chose_second_ctor()
-            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type,depth) => 1),null).ChosenCtor);
+            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type) => 1),null).ChosenCtor);
         
         [Fact]
         public void Can_chose_different_ctor_for_inner_types()
         {
-            var result = Subject.New<TestClass>(new ctorSel((type, depth) =>
+            var result = Subject.New<TestClass>(new ctorSel((type) =>
             {
-                if (type == typeof(TestClass) && depth == 0)
+                if (type == typeof(TestClass))
                     return 2;
 
-                if (type == typeof(TestClass2) && depth == 1)
+                if (type == typeof(TestClass2))
                     return 1;
 
                 return 0;
@@ -72,12 +72,13 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
 
         class ctorSel : ICtorSelecter
         {
-            private readonly Func<Type, int, int> _func;
+            private readonly Func<Type, int> _func;
 
-            public ctorSel(Func<Type,int,int> func) => _func = func;
+            public ctorSel(Func<Type,int> func) => _func = func;
 
-            public int Index(Type type, int depth)
-                => _func(type, depth);
+            public int Index(Type type)
+                => _func(type);
+
         }
     }
 }

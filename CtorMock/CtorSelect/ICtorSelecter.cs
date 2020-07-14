@@ -4,6 +4,6 @@ namespace CtorMock.CtorSelect
 {
     public interface ICtorSelecter
     {
-        int Index(Type type, int depth);
+        int Index(Type type);
     }
 }
