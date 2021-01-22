@@ -49,7 +49,7 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
         
         [Fact]
         public void Can_chose_second_ctor()
-            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type) => 1),null).ChosenCtor);
+            => Assert.Equal("depth0:second", Subject.New<TestClass>(new ctorSel((type) => 1)).ChosenCtor);
         
         [Fact]
         public void Can_chose_different_ctor_for_inner_types()
@@ -63,7 +63,7 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
                     return 1;
 
                 return 0;
-            }),null);
+            }));
             Assert.Equal("depth0:third", result.ChosenCtor);
             Assert.Equal("depth1:second", result.Inner.ChosenCtor);
             Assert.Equal("depth2:first", result.Inner.Inner.ChosenCtor);
