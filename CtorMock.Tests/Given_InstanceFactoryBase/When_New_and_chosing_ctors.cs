@@ -9,7 +9,7 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
         class TestClass
         {
             public string ChosenCtor { get; }
-            public TestClass2 Inner { get; set; }
+            public TestClass2 Inner { get;  }
             
             public TestClass(double s) => ChosenCtor = "depth0:first";
             public TestClass(int i) => ChosenCtor = "depth0:second";
@@ -23,7 +23,7 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
         class TestClass2
         {
             public string ChosenCtor { get; }
-            public TestClass3 Inner { get; set; }
+            public TestClass3 Inner { get; }
             
             public TestClass2(double s) => ChosenCtor = "depth1:first";
             public TestClass2(TestClass3 testClass3)

@@ -24,7 +24,7 @@ namespace CtorMock.ParamReplacing
                         return (paramReplace.replacedWith, true);
                 }
 
-            return (null, false);
+            return (new object(), false);
         }
     }
 }

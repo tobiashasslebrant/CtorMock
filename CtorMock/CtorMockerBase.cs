@@ -78,8 +78,7 @@ namespace CtorMock
 
                 return result.replaceWith;
             }
-
-            return Factory(parameterInfo.ParameterType, _defaultCtor, param=> Create(param.ParameterType, _defaultCtor));
+            return Factory(parameterInfo.ParameterType, _defaultCtor, param=> Replace(param, param.ParameterType, paramReplace));
         }
     }
 }
