@@ -22,7 +22,7 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
 
         [Fact]
         public void Will_not_accept_replace()
-            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(null,new TestReplaceFunction()));
+            => Assert.Throws<ArgumentException>(()=> Subject.New<TestClass1>(new TestReplaceFunction()));
 
     }
 }

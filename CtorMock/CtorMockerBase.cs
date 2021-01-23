@@ -10,32 +10,37 @@ namespace CtorMock
 {
     public abstract class CtorMockerBase
     {
-        private const int DEFAULT_CTOR = 0;
+        private readonly CtorSelecter _defaultCtor = new CtorSelecter(0);
         
         public abstract object CreateMock(Type type);
 
+        
+        [Obsolete("Will work for now, but may be removed")]
+        public T New<T>(ExpandoObject paramReplaces, int ctorIndex = 0) where T : class 
+            => New<T>(ctorIndex, paramReplaces.Select(s => (s.Key, s.Value)).ToArray());
+
         public T New<T>() where T : class
-            => New<T>(new CtorSelecter(0));
+            => New<T>(_defaultCtor);
         
         public T New<T>(int ctorIndex) where T : class
             => New<T>(new CtorSelecter(ctorIndex));
         
         public T New<T>(params (string paramName, object replacedWith)[] paramReplaces) where T : class
-            => New<T>(new CtorSelecter(0), new ParamReplaceMany(paramReplaces, (parent, param) => parent == typeof(T)));
+            => New<T>(_defaultCtor, new ParamReplaceMany(paramReplaces, (parent, param) => parent == typeof(T)));
 
         public T New<T>(int ctorIndex, params (string paramName, object replacedWith)[] paramReplaces) where T : class
             => New<T>(new CtorSelecter(ctorIndex), new ParamReplaceMany(paramReplaces, (parent, param) => parent == typeof(T)));
-
-        public T New<T>(ExpandoObject paramReplaces, int ctorIndex = 0) where T : class 
-            => New<T>(ctorIndex, paramReplaces.Select(s => (s.Key, s.Value)).ToArray());
-
+        
         public T New<T>(ICtorSelecter ctorSelecter) where T : class
             =>  (T)Factory(typeof(T), ctorSelecter, param => Create(param.ParameterType, ctorSelecter));
+
+        public T New<T>(IParamReplace paramReplace) where T : class
+            =>  (T)Factory(typeof(T), _defaultCtor, param => Replace(param, typeof(T), paramReplace));
 
         public T New<T>(ICtorSelecter ctorSelecter, IParamReplace paramReplace) where T : class
             =>  (T)Factory(typeof(T), ctorSelecter, param => Replace(param, typeof(T), paramReplace));
         
-        object Factory(Type type, ICtorSelecter ctorSelecter, Func<ParameterInfo, object> ctorHandler)
+        object Factory(Type type, ICtorSelecter ctorSelecter, Func<ParameterInfo, object> paramFunc)
         { 
             if (type.IsArray)
                 return DefaultValue.Of(type);
@@ -50,11 +55,10 @@ namespace CtorMock
             if (type.GetConstructors().Length == 0)
                 return DefaultValue.Of(type);
 
-            var ctorIndex = ctorSelecter?.Index(type) ?? DEFAULT_CTOR;
-
+            var ctorIndex = ctorSelecter.Index(type);
             var ctors = type.GetConstructors();
             var ctorParams = ctors[ctorIndex].GetParameters()
-                .Select(ctorHandler)
+                .Select(paramFunc)
                 .ToArray();
 
             return ctors[ctorIndex].Invoke(BindingFlags.CreateInstance,null, ctorParams, Thread.CurrentThread.CurrentCulture);
@@ -75,7 +79,7 @@ namespace CtorMock
                 return result.replaceWith;
             }
 
-            return Create(parameterInfo.ParameterType, new CtorSelecter(0));
+            return Factory(parameterInfo.ParameterType, _defaultCtor, param=> Create(param.ParameterType, _defaultCtor));
         }
     }
 }
