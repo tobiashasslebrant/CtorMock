@@ -18,5 +18,6 @@ package="$1"
 version="$2"
 apikey="$3"
 
+git tag "$version"
 dotnet pack ../$package/$package.csproj -c Release -o ../Builds /p:PackageVersion=$version
 dotnet nuget push ../Builds/$package.$version.nupkg -s https://api.nuget.org/v3/index.json -k $apikey
