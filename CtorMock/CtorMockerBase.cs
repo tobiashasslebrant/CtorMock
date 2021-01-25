@@ -70,15 +70,10 @@ namespace CtorMock
         object Replace(ParameterInfo parameterInfo, Type parent, IParamReplace paramReplace)
         {
             var result = paramReplace.Replace(parameterInfo, parent);
-            if (result.isReplaced)
-            {
-                if (result.replaceWith?.GetType() != parameterInfo.ParameterType)
-                    throw new ArgumentException(
-                        $"Replaced type {result.replaceWith?.GetType().Name} must be same as parameter type {parameterInfo.ParameterType.Name}");
-
-                return result.replaceWith;
-            }
-            return Factory(parameterInfo.ParameterType, _defaultCtor, param=> Replace(param, param.ParameterType, paramReplace));
+            return result.isReplaced
+                ? result.replaceWith
+                : Factory(parameterInfo.ParameterType, _defaultCtor,
+                    param => Replace(param, param.ParameterType, paramReplace));
         }
     }
 }

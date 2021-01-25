@@ -55,13 +55,8 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
             }
         }
 
-        public When_New_and_replacing_ctor_param2()
-        {
-            dynamic exp = new ExpandoObject();
-
-            exp.str2 = "replaced string";
-            _result = Subject.New<TestClass1>(exp, 0);
-        }
+        public When_New_and_replacing_ctor_param2() 
+            => _result = Subject.New<TestClass1>(("str2", "replaced string"));
 
         [Fact]
         public void Will_replace_str2()

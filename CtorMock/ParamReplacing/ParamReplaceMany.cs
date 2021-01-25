@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace CtorMock.ParamReplacing
@@ -19,12 +20,17 @@ namespace CtorMock.ParamReplacing
             if(_valid(parent, parameterInfo))
                 foreach (var paramReplace in _paramReplaces)
                 {
-                    if (parameterInfo.ParameterType == paramReplace.replacedWith.GetType() &&
-                        parameterInfo.Name == paramReplace.paramName)
+                    if (IsInterchangeable(parameterInfo.ParameterType, paramReplace.replacedWith.GetType())
+                        && parameterInfo.Name == paramReplace.paramName)
                         return (paramReplace.replacedWith, true);
                 }
 
             return (new object(), false);
         }
+
+        public bool IsInterchangeable(Type type, Type exchangeWith) 
+            => type.IsInterface
+                ? exchangeWith.GetInterfaces().Any(i => i == type)
+                : type.IsAssignableFrom(exchangeWith);
     }
 }
