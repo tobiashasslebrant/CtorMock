@@ -32,30 +32,5 @@ namespace CtorMock.ParamReplacing
 
             return sameParameter && interChangeableType;
         }
-        
-        
-        public (object replaceWith, bool isReplaced) Replace2(ParameterInfo parameterInfo, Type parent)
-        {
-            if(_valid(parent, parameterInfo))
-                foreach (var paramReplace in _paramReplaces)
-                {
-                    if (IsInterchangeable2(paramReplace.paramName, paramReplace.replacedWith.GetType())
-                        && parameterInfo.Name == paramReplace.paramName)
-                        return (paramReplace.replacedWith, true);
-                }
-            
-            return (new object(), false);
-            
-            bool IsInterchangeable2(string replaceParameterName, Type replaceParameterType)
-            {
-                var typeToBeReplaced = parameterInfo.ParameterType;
-                var sameParameter = replaceParameterName == parameterInfo.Name;
-                var interChangeableType = typeToBeReplaced.IsInterface
-                    ? replaceParameterType.GetInterfaces().Any(i => i == typeToBeReplaced)
-                    : typeToBeReplaced.IsAssignableFrom(replaceParameterType);
-
-                return sameParameter && interChangeableType;
-            }
-        }
     }
 }
