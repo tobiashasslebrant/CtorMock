@@ -8,7 +8,7 @@ namespace CtorMock.ParamReplacing
     {
         private readonly (string paramName, object replacedWith)[] _paramReplaces;
         private readonly Func<Type, ParameterInfo, bool> _valid;
-
+        
         public ParamReplaceMany((string paramName, object replacedWith)[] paramReplaces, Func<Type, ParameterInfo, bool> valid)
         {
             _paramReplaces = paramReplaces;
@@ -20,17 +20,23 @@ namespace CtorMock.ParamReplacing
             if(_valid(parent, parameterInfo))
                 foreach (var paramReplace in _paramReplaces)
                 {
-                    if (IsInterchangeable(parameterInfo.ParameterType, paramReplace.replacedWith.GetType())
+                    if (IsInterchangeable(paramReplace.paramName, paramReplace.replacedWith.GetType())
                         && parameterInfo.Name == paramReplace.paramName)
                         return (paramReplace.replacedWith, true);
                 }
-
+            
             return (new object(), false);
-        }
+            
+            bool IsInterchangeable(string replaceParameterName, Type replaceParameterType)
+            {
+                var typeToBeReplaced = parameterInfo.ParameterType;
+                var sameParameter = replaceParameterName == parameterInfo.Name;
+                var interChangeableType = typeToBeReplaced.IsInterface
+                    ? replaceParameterType.GetInterfaces().Any(i => i == typeToBeReplaced)
+                    : typeToBeReplaced.IsAssignableFrom(replaceParameterType);
 
-        public bool IsInterchangeable(Type type, Type exchangeWith) 
-            => type.IsInterface
-                ? exchangeWith.GetInterfaces().Any(i => i == type)
-                : type.IsAssignableFrom(exchangeWith);
+                return sameParameter && interChangeableType;
+            }
+        }
     }
 }
