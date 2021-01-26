@@ -15,19 +15,38 @@ namespace CtorMock.ParamReplacing
             _valid = valid;
         }
 
-        public (object replaceWith, bool isReplaced) Replace(ParameterInfo parameterInfo, Type parent)
+        public bool CanReplace(ParameterInfo parameterInfo, Type parent) 
+            => _valid(parent, parameterInfo)
+               && _paramReplaces.Any(a => IsInterchangeable(parameterInfo, a.paramName, a.replacedWith.GetType()));
+
+        public object GetReplacement(ParameterInfo parameterInfo, Type parent) 
+            => _paramReplaces.First(f => IsInterchangeable(parameterInfo, f.paramName, f.replacedWith.GetType())).replacedWith;
+
+        bool IsInterchangeable(ParameterInfo paramToBeReplaced, string replaceParameterName, Type replaceParameterType)
+        {
+            var typeToBeReplaced = paramToBeReplaced.ParameterType;
+            var sameParameter = replaceParameterName == paramToBeReplaced.Name;
+            var interChangeableType = typeToBeReplaced.IsInterface
+                ? replaceParameterType.GetInterfaces().Any(i => i == typeToBeReplaced)
+                : typeToBeReplaced.IsAssignableFrom(replaceParameterType);
+
+            return sameParameter && interChangeableType;
+        }
+        
+        
+        public (object replaceWith, bool isReplaced) Replace2(ParameterInfo parameterInfo, Type parent)
         {
             if(_valid(parent, parameterInfo))
                 foreach (var paramReplace in _paramReplaces)
                 {
-                    if (IsInterchangeable(paramReplace.paramName, paramReplace.replacedWith.GetType())
+                    if (IsInterchangeable2(paramReplace.paramName, paramReplace.replacedWith.GetType())
                         && parameterInfo.Name == paramReplace.paramName)
                         return (paramReplace.replacedWith, true);
                 }
             
             return (new object(), false);
             
-            bool IsInterchangeable(string replaceParameterName, Type replaceParameterType)
+            bool IsInterchangeable2(string replaceParameterName, Type replaceParameterType)
             {
                 var typeToBeReplaced = parameterInfo.ParameterType;
                 var sameParameter = replaceParameterName == parameterInfo.Name;

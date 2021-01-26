@@ -67,14 +67,11 @@ namespace CtorMock
         object Create(Type type, ICtorSelecter ctorSelecter)
             => Factory(type, ctorSelecter, param => Create(param.ParameterType, ctorSelecter));
         
-        object Replace(ParameterInfo parameterInfo, Type parent, IParamReplace paramReplace)
-        {
-            var result = paramReplace.Replace(parameterInfo, parent);
-            return result.isReplaced
-                ? result.replaceWith
+        object Replace(ParameterInfo parameterInfo, Type parent, IParamReplace paramReplace) 
+            => paramReplace.CanReplace(parameterInfo, parent)
+                ? paramReplace.GetReplacement(parameterInfo, parent)
                 : Factory(parameterInfo.ParameterType, _defaultCtor,
                     param => Replace(param, param.ParameterType, paramReplace));
-        }
     }
 }
 

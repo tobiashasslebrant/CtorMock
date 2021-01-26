@@ -14,10 +14,16 @@ namespace CtorMock.Tests.Given_InstanceFactoryBase
         
         class TestReplaceFunction : IParamReplace
         {
-            public (object replaceWith, bool isReplaced) Replace(ParameterInfo parameterInfo, Type parent)
-                => parameterInfo.Name == "str1"
-                    ? (new object(), true)
-                    : (null, false);
+            public bool CanReplace(ParameterInfo parameterInfo, Type parent) 
+                => parameterInfo.Name == "str1";
+
+            public object GetReplacement(ParameterInfo parameterInfo, Type parent) 
+                => new object();
+            //
+            // public (object replaceWith, bool isReplaced) Replace(ParameterInfo parameterInfo, Type parent)
+            //     => parameterInfo.Name == "str1"
+            //         ? (new object(), true)
+            //         : (null, false);
         }
 
         [Fact]
