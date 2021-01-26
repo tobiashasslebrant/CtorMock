@@ -13,5 +13,7 @@ namespace CtorMock.Moq.Tests
         [Fact]
         public void Should_have_mocked_the_interfaces() 
             => Assert.Equal("test2test3", Subject.Name);
+        
+        
     }
 }

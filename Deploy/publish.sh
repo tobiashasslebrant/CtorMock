@@ -32,7 +32,6 @@ while getopts 'n:v:a:bpg' flag; do
     a) apikey="${OPTARG}" ;;
     b) build='true' ;;
     p) push='true' ;;
-    g) gitversion='true' ;;
     *) print_usage
        exit 1 ;;
   esac
@@ -64,11 +63,5 @@ if [ "$push" == "true" ]; then
     fi
     
     dotnet nuget push ../Builds/$packagename.$version.nupkg -s https://api.nuget.org/v3/index.json -k $apikey
-    
-    if [ "$gitversion" == "true" ]; then
-        
-        git tag "$version"
-    fi
+    git tag "$packagename-$version"
 fi
-
-
