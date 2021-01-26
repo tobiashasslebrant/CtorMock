@@ -6,12 +6,12 @@ namespace CtorMock.FakeItEasy
 {
     public class CtorMocker : CtorMockerBase
     {
-        readonly Dictionary<Type, object> _mocks = new Dictionary<Type, object>();
+        readonly Dictionary<Type, object> _mocks = new();
 
         public T MockOf<T>() where T : class
-            => _mocks[typeof(T)] as T;
+            => (T)_mocks[typeof(T)];
 
-        protected override object CreateMock(Type type)
+        public override object CreateMock(Type type)
         {
             if (!_mocks.ContainsKey(type))
                 _mocks.Add(type, Create.Fake(type));

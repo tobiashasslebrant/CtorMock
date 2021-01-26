@@ -1,4 +1,3 @@
-using System.Dynamic;
 using Xunit;
 
 namespace CtorMock.Moq.Tests
@@ -10,16 +9,11 @@ namespace CtorMock.Moq.Tests
         public When_injecting_override_ctor_param()
         {
             var mocker = new CtorMocker();
-            dynamic expand = new ExpandoObject();
-            expand.test1 = "kalle";
-            expand.test2 = 3;
-            expand.implementation = new With_Nothing{Name = "TestOverride Name"};
-
-         //  _result =  mocker.New<With_ctor_interfaces_and_primitives>(expand);
-         _result = mocker.New<With_ctor_interfaces_and_primitives>(("implementation", new With_Nothing
-         {
-             Name = "TestOverride Name"
-         }));
+            
+            _result = mocker.New<With_ctor_interfaces_and_primitives>(
+                 ("test1", "kalle"),
+                 ("test2", 3),
+                 ("implementation", new With_Nothing {Name = "TestOverride Name"}));
         }
 		
         [Fact]

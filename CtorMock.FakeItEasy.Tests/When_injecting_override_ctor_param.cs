@@ -3,9 +3,9 @@ using Xunit;
 
 namespace CtorMock.FakeItEasy.Tests
 {
-    public interface ITestOverride { string Name { get; set; }}
+    public interface ITestOverride { string? Name { get; set; }}
 
-    public class TestOverride : ITestOverride { public string Name { get; set; } }
+    public class TestOverride : ITestOverride { public string? Name { get; set; } }
 
     public class CtorOverrideTest
     {
@@ -30,14 +30,11 @@ namespace CtorMock.FakeItEasy.Tests
         public When_injecting_override_ctor_param()
         {
             var mocker = new CtorMocker();
-            dynamic expand = new ExpandoObject();
-            expand.test1 = "kalle";
-            expand.test2 = 3;
-            expand.test3 = new TestOverride{Name = "TestOverride Name"};
-
-           _result =  mocker.New<CtorOverrideTest>(expand);
+            _result = mocker.New<CtorOverrideTest>(
+                ("test1", "kalle"),
+                ("test2", 3),
+                ("implementation", new TestOverride() {Name = "TestOverride Name"}));
         }
-
 
         [Fact]
         public void Should_have_overridden_ctor_param_Test1()
@@ -55,6 +52,4 @@ namespace CtorMock.FakeItEasy.Tests
         public void Should_have_ignored_ctor_param_Test4()
             => Assert.Null(_result.Test4);
     }
-
-
 }

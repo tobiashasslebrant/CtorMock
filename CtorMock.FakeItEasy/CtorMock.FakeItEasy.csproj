@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
  	 <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
  	 <LangVersion>default</LangVersion>
+ 	 <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+ 	 <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
@@ -14,7 +15,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="CtorMock" Version="1.0.9" />
+    <PackageReference Include="CtorMock" Version="1.0.12" />
     <PackageReference Include="FakeItEasy" Version="4.3.0" />
   </ItemGroup>
 

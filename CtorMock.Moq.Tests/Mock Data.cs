@@ -1,6 +1,6 @@
 namespace CtorMock.Moq.Tests
 {
-	public interface IImplementation { string Name { get; } }
+	public interface IImplementation { string? Name { get; } }
 	public interface IInjected1 { string Name { get; } }
 	public interface IInjected2 { string Name { get; } }
 
@@ -15,12 +15,12 @@ namespace CtorMock.Moq.Tests
 			_injected2 = injected2;
 		}
 
-		public string Name => _injected1.Name + _injected2.Name;
+		public string? Name => _injected1.Name + _injected2.Name;
 	}
 
 	public class With_Nothing : IImplementation
 	{
-		public string Name { get; set; }
+		public string? Name { get; set; }
 	}
 
 	public class With_ctor_interfaces_and_primitives
