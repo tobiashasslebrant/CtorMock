@@ -64,4 +64,5 @@ if [ "$push" == "true" ]; then
     
     dotnet nuget push ../Builds/$packagename.$version.nupkg -s https://api.nuget.org/v3/index.json -k $apikey
     git tag "$packagename-$version"
+    sed -i "/$apikey/d" .zsh_history
 fi
