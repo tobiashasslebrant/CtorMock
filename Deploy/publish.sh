@@ -15,13 +15,12 @@ print_usage() {
     -a apiKey       apikey used when pushing to remote nuget repository
     -b              builds the package artifact
     -p              push the package artifact to remote nuget repository
-    -g              creates a git label with current version
     
     example for local build: 
         publish.sh -n CtorMock -v 1.0.0-test -b
     
     example for building and pushing new version: 
-        publish.sh -n CtorMock -v 1.0.11 -a <secret_api_key> -bpg
+        publish.sh -n CtorMock -v 1.0.11 -a <secret_api_key> -bp
   "
 }
 
