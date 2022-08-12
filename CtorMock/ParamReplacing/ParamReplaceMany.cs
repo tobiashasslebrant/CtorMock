@@ -17,15 +17,23 @@ namespace CtorMock.ParamReplacing
 
         public bool CanReplace(ParameterInfo parameterInfo, Type parent) 
             => _valid(parent, parameterInfo)
-               && _paramReplaces.Any(a => IsInterchangeable(parameterInfo, a.paramName, a.replacedWith.GetType()));
+               && _paramReplaces.Any(a => IsInterchangeable(parameterInfo, a.paramName, a.replacedWith));
 
         public object GetReplacement(ParameterInfo parameterInfo, Type parent) 
-            => _paramReplaces.First(f => IsInterchangeable(parameterInfo, f.paramName, f.replacedWith.GetType())).replacedWith;
+            => _paramReplaces.First(f => IsInterchangeable(parameterInfo, f.paramName, f.replacedWith)).replacedWith;
 
-        bool IsInterchangeable(ParameterInfo paramToBeReplaced, string replaceParameterName, Type replaceParameterType)
+        bool IsInterchangeable(ParameterInfo paramToBeReplaced, string replaceParameterName, object? replaceParameter)
         {
             var typeToBeReplaced = paramToBeReplaced.ParameterType;
             var sameParameter = replaceParameterName == paramToBeReplaced.Name;
+
+            if (!sameParameter)
+                return false;
+            
+            if (replaceParameter is null)
+                return true;
+            
+            var replaceParameterType = replaceParameter.GetType();
             var interChangeableType = typeToBeReplaced.IsInterface
                 ? replaceParameterType.GetInterfaces().Any(i => i == typeToBeReplaced)
                 : typeToBeReplaced.IsAssignableFrom(replaceParameterType);

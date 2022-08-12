@@ -1,4 +1,3 @@
-using System.Dynamic;
 using Xunit;
 
 namespace CtorMock.Tests.Given_InstanceFactoryBase

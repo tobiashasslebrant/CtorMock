@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Dynamic;
-using Moq;
 
 namespace CtorMock.Moq
 {

@@ -17,7 +17,7 @@ namespace CtorMock
         
         [Obsolete("Will work for now, but may be removed")]
         public T New<T>(ExpandoObject paramReplaces, int ctorIndex = 0) where T : class 
-            => New<T>(ctorIndex, paramReplaces.Select(s => (s.Key, s.Value)).ToArray());
+            => New<T>(ctorIndex, paramReplaces.Select(s => (s.Key, s.Value)).ToArray()!);
 
         public T New<T>() where T : class
             => New<T>(_defaultCtor);

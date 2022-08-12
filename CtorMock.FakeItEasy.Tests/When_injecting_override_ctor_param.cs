@@ -1,4 +1,3 @@
-using System.Dynamic;
 using Xunit;
 
 namespace CtorMock.FakeItEasy.Tests
@@ -33,7 +32,7 @@ namespace CtorMock.FakeItEasy.Tests
             _result = mocker.New<CtorOverrideTest>(
                 ("test1", "kalle"),
                 ("test2", 3),
-                ("implementation", new TestOverride() {Name = "TestOverride Name"}));
+                ("test3", new TestOverride() {Name = "TestOverride Name"}));
         }
 
         [Fact]
