@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="CtorMock" Version="1.0.12" />
-    <PackageReference Include="FakeItEasy" Version="4.3.0" />
+    <PackageReference Include="FakeItEasy" Version="7.3.1" />
   </ItemGroup>
 
 </Project>
