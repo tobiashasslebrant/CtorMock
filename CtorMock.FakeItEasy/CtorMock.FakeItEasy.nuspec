@@ -13,8 +13,8 @@
     <copyright>Copyright 2018</copyright>
     <tags>IOC Mock Injection Constructor</tags>
 	<dependencies>
-		<dependency id="CtorMock" version="1.0.12" />
-		<dependency id="FakeItEasy" version="4.3.0" />
+		<dependency id="CtorMock" version="1.0.14" />
+		<dependency id="FakeItEasy" version="7.3.1" />
 	</dependencies>
 
   </metadata>
