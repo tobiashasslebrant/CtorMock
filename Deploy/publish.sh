@@ -21,6 +21,10 @@ print_usage() {
     
     example for building and pushing new version: 
         publish.sh -n CtorMock -v 1.0.11 -a <secret_api_key> -bp
+
+
+	Attention:
+		Don't forget to up referenced version in .nuspec file
   "
 }
 
