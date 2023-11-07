@@ -4,7 +4,7 @@
     <id>CtorMock.NSubstitute</id>
     <version>$version$</version>
     <title>CtorMock for NSubstitute</title>
-    <authors>Tobias Hasslebrant, Dennis Dyallo</authors>
+    <authors>Tobias Hasslebrant</authors>
     <owners>Tobias Hasslebrant</owners>
     <projectUrl>https://github.com/tobiashasslebrant/CtorMock</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
