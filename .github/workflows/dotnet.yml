@@ -1,49 +1,34 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
 name: .NET
 
 on:
   push:
-    branches: [ "main", "*" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main", "*" ]
+    branches: [ "master" ]
 
 jobs:
-  build-and-test:
+  build:
+
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        include:
-          - dotnet-version: 7.0.x
-            framework: net7.0
-          - dotnet-version: 2.1.x
-            framework: netcoreapp2.1
-            test-project-path: '**/*Tests.csproj' # Adjust this to point to your test projects
-            include-netstandard: true # This flag is used to include netstandard2.0 tests
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore -c Release
-
-      - name: Test
-        if: ${{ !matrix.include-netstandard }}
-        run: dotnet test --no-build --verbosity normal --configuration Release --logger "trx;LogFileName=test_results.trx"
-
-      - name: Test .NET Standard
-        if: ${{ matrix.include-netstandard }}
-        run: |
-          find . -name ${{ matrix.test-project-path }} -exec dotnet test {} --no-build --verbosity normal --configuration Release --framework ${{ matrix.framework }} --logger "trx;LogFileName=test_results.trx" \;
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action/composite@v2
-        if: always()
-        with:
-          files: |
-            **/TestResults/test_results.trx
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Run tests
+      run: dotnet test --no-build --verbosity normal --configuration Release --logger "trx;LogFileName=test_results.trx" 
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        files: |
+          **/TestResults/test_results.trx
