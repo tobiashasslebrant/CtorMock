@@ -1,3 +1,6 @@
+[![Tests](https://github.com/DennisDyallo/CtorMock/actions/workflows/dotnet.yml/badge.svg)](https://github.com/DennisDyallo/CtorMock/actions/workflows/dotnet.yml)
+
+
 # CtorMock
 Used for automocking constructor arguments
 
