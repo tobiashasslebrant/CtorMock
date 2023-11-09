@@ -7,7 +7,7 @@ namespace CtorMock.Moq
 {
     public class BuilderMocker<T> where T : class
     {
-        readonly Mock<T> _mock = new Mock<T>();
+        readonly Mock<T> _mock = new();
 
         public T Object => _mock.Object;
 

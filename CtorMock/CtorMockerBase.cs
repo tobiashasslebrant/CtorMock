@@ -10,7 +10,7 @@ namespace CtorMock
 {
     public abstract class CtorMockerBase
     {
-        private readonly CtorSelecter _defaultCtor = new CtorSelecter(0);
+        private readonly CtorSelecter _defaultCtor = new(0);
         
         public abstract object CreateMock(Type type);
 
@@ -74,6 +74,3 @@ namespace CtorMock
                     param => Replace(param, param.ParameterType, paramReplace));
     }
 }
-
-
-  
