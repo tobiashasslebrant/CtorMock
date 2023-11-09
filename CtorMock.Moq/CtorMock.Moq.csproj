@@ -3,7 +3,7 @@
   <PropertyGroup>
   	 <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
   	 <LangVersion>default</LangVersion>
-  	 <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+  	 <TargetFrameworks>net7.0;netstandard2.0</TargetFrameworks>
   	 <Nullable>enable</Nullable>
   </PropertyGroup>
 

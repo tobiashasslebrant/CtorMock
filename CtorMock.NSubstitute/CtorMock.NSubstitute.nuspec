@@ -1,21 +1,22 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>CtorMock.Moq</id>
+    <id>CtorMock.NSubstitute</id>
     <version>$version$</version>
-    <title>CtorMock for Moq</title>
-    <authors>Tobias Hasslebrant</authors>
+    <title>CtorMock for NSubstitute</title>
+    <authors>Tobias Hasslebrant, Dennis Dyallo</authors>
     <owners>Tobias Hasslebrant</owners>
     <projectUrl>https://github.com/tobiashasslebrant/CtorMock</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Moq implementation for auto mocking constructor arguments</description>
+    <description>NSubstitute implementation for auto mocking constructor arguments</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>IOC Mock Injection Constructor</tags>
 	<dependencies>
 		<dependency id="CtorMock" version="1.0.14" />
-		<dependency id="Moq" version="4.18.2" />
+		<dependency id="NSubstitute" version="5.1.0" />
 	</dependencies>
+
   </metadata>
 
   <files>

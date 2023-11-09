@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtorMock.FakeItEasy.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtorMock.Tests", "CtorMock.Tests\CtorMock.Tests.csproj", "{EB62D06B-0074-4980-BD90-7CC73E46A4BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtorMock.NSubstitute", "CtorMock.NSubstitute\CtorMock.NSubstitute.csproj", "{A3538443-CBD1-4733-AC89-BD93C9480AB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtorMock.NSubstitute.Tests", "CtorMock.NSubstitute.Tests\CtorMock.NSubstitute.Tests.csproj", "{3040B3EE-0196-408A-B79B-E26190375844}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{EB62D06B-0074-4980-BD90-7CC73E46A4BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB62D06B-0074-4980-BD90-7CC73E46A4BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB62D06B-0074-4980-BD90-7CC73E46A4BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3538443-CBD1-4733-AC89-BD93C9480AB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3538443-CBD1-4733-AC89-BD93C9480AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3538443-CBD1-4733-AC89-BD93C9480AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3538443-CBD1-4733-AC89-BD93C9480AB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3040B3EE-0196-408A-B79B-E26190375844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3040B3EE-0196-408A-B79B-E26190375844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3040B3EE-0196-408A-B79B-E26190375844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3040B3EE-0196-408A-B79B-E26190375844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
