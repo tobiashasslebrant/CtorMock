@@ -1,4 +1,4 @@
-[![Tests](https://github.com/DennisDyallo/CtorMock/actions/workflows/dotnet.yml/badge.svg)](https://github.com/DennisDyallo/CtorMock/actions/workflows/dotnet.yml)
+[![Tests](https://github.com/tobiashasslebrant/CtorMock/actions/workflows/dotnet.yml/badge.svg)](https://github.com/tobiashasslebrant/CtorMock/actions/workflows/dotnet.yml)
 
 
 # CtorMock
